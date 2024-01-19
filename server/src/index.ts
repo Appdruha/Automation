@@ -1,6 +1,6 @@
 require('dotenv').config({path: `.env.${process.env.NODE_ENV}`})
-const sequelize = require("./db")
-const express = require('express')
+import {sequelize} from "./db"
+import express from "express"
 const PORT = process.env.PORT
 
 const app = express()
