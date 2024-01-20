@@ -7,7 +7,7 @@ const User = sequelize.define('user', {
     password: {type: DataType.STRING, allowNull: false},
 }, {timestamps: false})
 
-const Employee = sequelize.define('employee', {
+const Worker = sequelize.define('worker', {
     id: {type: DataType.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataType.STRING, allowNull: false},
     personNumber: {type: DataType.STRING, allowNull: false, unique: true},
@@ -30,9 +30,9 @@ const Operation = sequelize.define('operation', {
     professionCode: {type: DataType.STRING, allowNull: false},
 }, {timestamps: false})
 
-const EmployeeOperation = sequelize.define('employee_operation', {
+const WorkerOperation = sequelize.define('worker_operation', {
     id: {type: DataType.INTEGER, primaryKey: true, autoIncrement: true},
-    employeeId: {type: DataType.INTEGER, allowNull: false},
+    workerId: {type: DataType.INTEGER, allowNull: false},
     operationId: {type: DataType.STRING, allowNull: false},
     date: {type: DataType.STRING, allowNull: false},
     time: {type: DataType.STRING, allowNull: false},
@@ -41,21 +41,21 @@ const EmployeeOperation = sequelize.define('employee_operation', {
 User.hasMany(Detail)
 Detail.belongsTo(User)
 
-User.hasMany(Employee)
-Employee.belongsTo(User)
+User.hasMany(Worker)
+Worker.belongsTo(User)
 
 Detail.hasMany(Operation)
 Operation.belongsTo(Detail)
 
-Employee.belongsToMany(Operation, {through: EmployeeOperation})
-Operation.belongsToMany(Employee, {through: EmployeeOperation})
+Worker.belongsToMany(Operation, {through: WorkerOperation})
+Operation.belongsToMany(Worker, {through: WorkerOperation})
 
 module.exports = {
     User,
-    Employee,
+    Worker,
     Detail,
     Operation,
-    EmployeeOperation
+    WorkerOperation
 }
 
 
