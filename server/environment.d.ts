@@ -11,6 +11,8 @@ declare global {
             readonly DB_PASSWORD: string;
             readonly DB_HOST: string;
             readonly DB_PORT: number;
+            readonly SECRET_KEY: string;
+            readonly REFRESH_KEY: string
         }
     }
 }
