@@ -2,8 +2,12 @@ import ApiError from "../errors/api-error";
 import {Request, Response, NextFunction} from "express";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import {RequestBody} from "../types/request-response";
+import {AuthRequestBody} from "../types/user";
+// import {User} from "../db/models"
 
 type Token = "jwt" | "refresh"
+
 
 const generateJwt = (id: number, email: string, token: Token) => {
     let key: string = process.env.SECRET_KEY
@@ -22,10 +26,11 @@ const generateJwt = (id: number, email: string, token: Token) => {
 }
 
 class UserController {
-    async registration(req: Request, res: Response, next: NextFunction) {
+    async registration(req: RequestBody<AuthRequestBody>, res: Response, next: NextFunction) {
         try {
             const {email, password, rememberMe} = req.body
-            console.log(email)
+            const hashPassword = await bcrypt.hash(password, 5)
+            const user = User
         } catch (e) {
 
         }

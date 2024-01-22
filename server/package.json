@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "set NODE_ENV=production&& node dist/index.js",
-    "dev": "set NODE_ENV=development&& nodemon src/index.ts"
+    "dev": "npx nodemon"
   },
   "keywords": [],
   "author": "",

@@ -1,5 +1,5 @@
 import {DataType} from "sequelize-typescript";
-const sequelize = require("./index")
+import sequelize from "./index"
 
 const User = sequelize.define('user', {
     id: {type: DataType.INTEGER, primaryKey: true, autoIncrement: true},
@@ -50,7 +50,7 @@ Operation.belongsTo(Detail)
 Worker.belongsToMany(Operation, {through: WorkerOperation})
 Operation.belongsToMany(Worker, {through: WorkerOperation})
 
-module.exports = {
+export default {
     User,
     Worker,
     Detail,
