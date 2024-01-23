@@ -1,11 +1,11 @@
-import express from "express"
-import router from "./routes";
 import dotenv from "dotenv"
-import sequelize from "./db/index"
-import models from "./db/models"
-const PORT= process.env.PORT
-
 dotenv.config({path: `.env.${process.env.NODE_ENV}`})
+import express from "express"
+import router from "./routes/index.js";
+import sequelize from "./db/index.js"
+import models from "./db/models.js"
+
+const PORT = process.env.PORT
 
 const app = express()
 app.use('/api', router)

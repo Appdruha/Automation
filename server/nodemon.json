@@ -1,5 +1,6 @@
 {
   "watch": ["src"],
-  "ext": "ts,js",
-  "exec": "set NODE_ENV=development&& ts-node-esm ./src/index.ts"
+  "ext": ".ts,.js",
+  "ignore": [],
+  "exec": "set NODE_ENV=development&& tsx ./src/index.ts"
 }
