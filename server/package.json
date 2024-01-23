@@ -4,11 +4,18 @@
   "description": "",
   "main": "index.ts",
   "type": "module",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "set NODE_ENV=production&& node dist/index.js",
-    "dev": "npx nodemon"
+    "dev": "npx nodemon",
+    "lint": "npx eslint ./src",
+    "format": "npx eslint ./src --fix"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +26,12 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.11.5",
     "@types/validator": "^13.11.8",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0",
+    "husky": "^8.0.3",
     "nodemon": "^3.0.3",
+    "prettier": "^3.2.4",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   },
