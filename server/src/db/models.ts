@@ -1,15 +1,28 @@
-import { DataType } from 'sequelize-typescript'
+import { Column, DataType, Model, Table } from "sequelize-typescript";
 import sequelize from './index.js'
+import { UserAttributes, UserCreationAttributes } from "../types/user.js";
 
-export const User = sequelize.define(
-  'user',
-  {
-    id: { type: DataType.INTEGER, primaryKey: true, autoIncrement: true },
-    email: { type: DataType.STRING, unique: true, allowNull: false },
-    password: { type: DataType.STRING, allowNull: false },
-  },
-  { timestamps: false },
-)
+@Table({timestamps: false})
+export class User extends Model<UserAttributes, UserCreationAttributes> {
+  @Column({type: DataType.INTEGER, primaryKey: true, autoIncrement: true})
+  id: number
+  @Column({type: DataType.STRING, unique: true, allowNull: false})
+  email: string
+  @Column({type: DataType.STRING, allowNull: false})
+  password: string
+
+}
+
+
+// export const User = sequelize.define(
+//   'user',
+//   {
+//     id: { type: DataType.INTEGER, primaryKey: true, autoIncrement: true },
+//     email: { type: DataType.STRING, unique: true, allowNull: false },
+//     password: { type: DataType.STRING, allowNull: false },
+//   },
+//   { timestamps: false },
+// )
 
 export const Worker = sequelize.define(
   'worker',
@@ -77,6 +90,3 @@ export default {
   Operation,
   WorkerOperation,
 }
-
-
-
