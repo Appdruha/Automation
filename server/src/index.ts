@@ -1,13 +1,18 @@
 import dotenv from 'dotenv'
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 import express from 'express'
-import router from './routes/index.js'
-import sequelize from './db/index.js'
+import router from './routes/index.ts'
+import sequelize from './db/index.ts'
+import cookieParser from 'cookie-parser'
+import apiErrorHandler from './middlewares/error-handler-middleware.ts'
 
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 const PORT = process.env.PORT
 
-const app = express()
+export const app = express()
+app.use(express.json())
+app.use(cookieParser())
 app.use('/api', router)
+app.use(apiErrorHandler)
 
 const start = async () => {
   try {

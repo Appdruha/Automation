@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import userRouter from './user-router.js'
-import workerRouter from './worker-router.js'
+import userRouter from './user-router.ts'
+import workerRouter from './worker-router.ts'
 
 const router = Router()
 
