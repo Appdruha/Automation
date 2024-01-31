@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "test": "jest",
+    "test": "set NODE_ENV=test&& jest",
     "build": "npx tsc",
     "start": "set NODE_ENV=production&& node dist/index.js",
     "dev": "npx nodemon",

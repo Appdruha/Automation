@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize-typescript'
 import User from "./models/user.ts";
 import Worker from "./models/worker.ts";
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
+dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` })
 
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,

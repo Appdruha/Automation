@@ -5,7 +5,7 @@ import sequelize from './db/index.ts'
 import cookieParser from 'cookie-parser'
 import apiErrorHandler from './middlewares/error-handler-middleware.ts'
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
+dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` })
 const PORT = process.env.PORT
 
 export const app = express()
