@@ -2,8 +2,10 @@ import request from 'supertest'
 import { app } from '../../src/index.ts'
 
 describe('api/user/registration', () => {
-  it('should return code 500, body: { message: ... }', async () => {
-    await request(app).post('/api/users/registration').expect(500, { message: 'Ошибка при регистрации пользователя' })
+  it('should return code 400, body: { message: ... }', async () => {
+    await request(app)
+      .post('/api/users/registration')
+      .expect(400, { message: 'Ошибка при создании или поиске пользователя' })
   })
 
   it('should return code 200, body: { accessToken, id }, cookie: ...', async () => {
@@ -17,8 +19,8 @@ describe('api/user/registration', () => {
       id: expect.any(Number),
     })
 
-    if (!("set-cookie" in response.headers)) {
-      throw new Error("Missing set-cookie header");
+    if (!('set-cookie' in response.headers)) {
+      throw new Error('Missing set-cookie header')
     }
   })
 })
