@@ -3,12 +3,12 @@ import { app } from '../../src/index.ts'
 
 describe('api/user/registration', () => {
   it('should return code 500, body: { message: ... }', async () => {
-    await request(app).post('/api/user/registration').expect(500, { message: 'Ошибка при регистрации пользователя' })
+    await request(app).post('/api/users/registration').expect(500, { message: 'Ошибка при регистрации пользователя' })
   })
 
   it('should return code 200, body: { accessToken, id }, cookie: ...', async () => {
     const response = await request(app)
-      .post('/api/user/registration')
+      .post('/api/users/registration')
       .send({ email: 'andrey@mail.com', password: 'helloo', rememberMe: true })
       .expect(200)
 

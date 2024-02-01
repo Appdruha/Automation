@@ -1,3 +1,3 @@
 import { Request } from 'express'
 
-export type RequestBody<T> = Request<unknown, unknown, T>
+export type RequestWithBody<T> = Request<unknown, unknown, T>

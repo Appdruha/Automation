@@ -4,7 +4,7 @@ import workerRouter from './worker-router.ts'
 
 const router = Router()
 
-router.use('/user', userRouter)
+router.use('/users', userRouter)
 router.use('/workers', workerRouter)
 
 export default router
