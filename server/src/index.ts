@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import router from './routes/index.ts'
+import router from './routers/index.ts'
 import sequelize from './db/index.ts'
 import cookieParser from 'cookie-parser'
 import apiErrorHandler from './middlewares/error-handler-middleware.ts'
