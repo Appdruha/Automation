@@ -1,7 +1,7 @@
 import { Column, DataType, HasMany, HasOne, Model, Table } from "sequelize-typescript";
 import { Optional } from "sequelize";
 import Worker from "./worker.ts";
-import Session from "./session.js";
+import Session from "./session.ts";
 
 interface UserAttributes {
   id: number

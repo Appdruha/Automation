@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs'
-import User from '../db/models/user.js'
-import TokenService from './token-service.js'
-import UserDto from '../dtos/user-dto.js'
-import ApiError from '../errors/api-error.js'
+import User from '../db/models/user.ts'
+import TokenService from './token-service.ts'
+import UserDto from '../dtos/user-dto.ts'
+import ApiError from '../errors/api-error.ts'
 import { where } from 'sequelize'
-import tokenService from "./token-service.js";
+import tokenService from "./token-service.ts";
 
 class UserService {
   async registration(email: string, password: string, IP: string | undefined) {

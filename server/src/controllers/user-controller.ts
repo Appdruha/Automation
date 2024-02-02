@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express'
 import { RequestWithBody } from '../types/request-data.ts'
 import { UserRequestBody, UserResponseBody } from '../types/user.ts'
-import userService from '../services/user-service.js'
+import userService from '../services/user-service.ts'
 
 
 class UserController {

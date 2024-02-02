@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express'
+import fileUpload from 'express-fileupload'
 import router from './routers/index.ts'
 import sequelize from './db/index.ts'
 import cookieParser from 'cookie-parser'
@@ -11,6 +12,7 @@ const PORT = process.env.PORT
 export const app = express()
 app.use(express.json())
 app.use(cookieParser())
+app.use(fileUpload({}))
 app.use('/api', router)
 app.use(apiErrorHandler)
 

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import Session from '../db/models/session.js'
-import ApiError from '../errors/api-error.js'
-import User from "../db/models/user.js";
+import Session from '../db/models/session.ts'
+import ApiError from '../errors/api-error.ts'
+import User from "../db/models/user.ts";
 
 type Token = 'ACCESS' | 'REFRESH'
 

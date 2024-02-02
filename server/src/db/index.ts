@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import { Sequelize } from 'sequelize-typescript'
 import User from "./models/user.ts";
 import Worker from "./models/worker.ts";
-import Session from "./models/session.js";
+import Session from "./models/session.ts";
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` })
 
