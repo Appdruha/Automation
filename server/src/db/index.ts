@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import { Sequelize } from 'sequelize-typescript'
 import User from "./models/user.ts";
 import Worker from "./models/worker.ts";
+import Session from "./models/session.js";
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` })
 
@@ -12,7 +13,7 @@ const sequelize = new Sequelize({
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
-  models: [User, Worker],
+  models: [User, Worker, Session],
 })
 
 export default sequelize

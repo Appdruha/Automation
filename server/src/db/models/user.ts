@@ -1,6 +1,7 @@
-import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, HasOne, Model, Table } from "sequelize-typescript";
 import { Optional } from "sequelize";
 import Worker from "./worker.ts";
+import Session from "./session.js";
 
 interface UserAttributes {
   id: number
@@ -27,6 +28,9 @@ class User extends Model<UserAttributes, UserCreationAttributes> {
 
   @HasMany(() => Worker)
   workers: Worker[];
+
+  @HasOne(() => Session)
+  session: Session;
 }
 
 export default User

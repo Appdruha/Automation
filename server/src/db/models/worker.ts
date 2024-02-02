@@ -18,7 +18,7 @@ interface WorkerCreationAttributes extends Optional<WorkerAttributes, "id"> { }
   tableName: "workers",
   modelName: "Worker"
 })
-export class Worker extends Model<WorkerAttributes, WorkerCreationAttributes> implements WorkerAttributes{
+class Worker extends Model<WorkerAttributes, WorkerCreationAttributes> implements WorkerAttributes{
   @Column({type: DataType.INTEGER, primaryKey: true, autoIncrement: true, unique: true})
   id: number
 
@@ -39,23 +39,7 @@ export class Worker extends Model<WorkerAttributes, WorkerCreationAttributes> im
   userId: number;
 
   @BelongsTo(() => User)
-  author: User;
+  user: User;
 }
 
 export default Worker
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
