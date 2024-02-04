@@ -19,6 +19,7 @@ export default multer({
     files: 1,
     fieldNameSize: 1000,
     fields: 1,
-    fieldSize: 100000000
+    fieldSize: 100000000,
+    parts: 100,
   },
 })
