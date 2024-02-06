@@ -3,7 +3,6 @@ import User from "./user.ts";
 import { Optional } from "sequelize";
 
 interface WorkerAttributes {
-  id: number
   name: string
   birthday: Date
   personNumber: string
@@ -11,22 +10,17 @@ interface WorkerAttributes {
   userId: number
 }
 
-interface WorkerCreationAttributes extends Optional<WorkerAttributes, "id"> { }
-
 @Table({
   timestamps: false,
   tableName: "workers",
   modelName: "Worker"
 })
-class Worker extends Model<WorkerAttributes, WorkerCreationAttributes> implements WorkerAttributes{
-  @Column({type: DataType.INTEGER, primaryKey: true, autoIncrement: true, unique: true})
-  id: number
+class Worker extends Model<WorkerAttributes> implements WorkerAttributes{
+  @Column({type: DataType.STRING, primaryKey: true, unique: true})
+  personNumber: string
 
   @Column({type: DataType.STRING, allowNull: false})
   name: string
-
-  @Column({type: DataType.STRING, allowNull: false, unique: true})
-  personNumber: string
 
   @Column({type: DataType.STRING, allowNull: false})
   profession: string

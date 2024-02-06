@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import XLSX from "xlsx";
+import Worker from "../db/models/worker.js";
+import WorkerService from "../services/worker-service.js";
 
 
 class WorkerController {
@@ -7,13 +9,9 @@ class WorkerController {
     try {
       if (req.file) {
         const file = req.file.buffer
-        console.log(req.file.mimetype);
-        const workbook = XLSX.read(file)
-        const data = Object.keys(XLSX.utils.sheet_to_json(workbook.Sheets['Лист1'])[0]!)
-        console.log(data);
-
-        return res.json(data)
-      }
+        const workersData = await WorkerService.create(file, 6)
+        return res.json(workersData)
+      } else return res.json({mess: 'working'})
     } catch (e) {
       next(e)
     }
