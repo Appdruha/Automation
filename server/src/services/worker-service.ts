@@ -8,30 +8,42 @@ import {
   defaultBirthdayValue,
   defaultProfessionValue,
   nameRegExp,
-  personNumberRegExp, professionRegExp
-} from "../utils/consts.js";
+  personNumberRegExp,
+} from '../utils/consts.js'
+import WorkerDto from "../dtos/worker-dto.js";
 
 class WorkerService {
   async create(file: Buffer, userId: number) {
     const workbook = XLSX.read(file)
     const sheetName = workbook.SheetNames[0]
     const workersDataFromSheet: WorkerFromSheet[] = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
+    const validatedWorkers = this.validateWorkersData(workersDataFromSheet)
 
-    const workers = await Worker.findAll({ where: { userId } })
-    console.log(workers)
+    const workers = await Promise.all(validatedWorkers.map( (validatedWorker) => {
+      return Worker.create({...validatedWorker, userId})
+    }))
 
-    console.log(this.validateWorkersData(workersDataFromSheet))
-    return this.validateWorkersData(workersDataFromSheet)
+    return workers.map(worker => new WorkerDto(worker))
   }
 
   validateWorkersData(workersData: WorkerFromSheet[]) {
     return workersData.map((workerData, index): WorkerData => {
-      const values = Object.values(workerData)
+      let values = Object.values(workerData)
+
+      if (values.length > 4) {
+        throw ApiError.badRequest(`Строка ${index + 2} имеет лишние значения`)
+      }
 
       const findValueWithRegExp = (array: string[], regExp: string) => {
-        return array.find((value) => {
+        const someValue = array.find((value) => {
           return new RegExp(regExp).test(value)
         })
+
+        if (someValue) {
+          values = values.filter((value) => value != someValue)
+        }
+
+        return someValue
       }
 
       const workerNumber = findValueWithRegExp(values, personNumberRegExp)
@@ -41,18 +53,18 @@ class WorkerService {
 
       const workerName = findValueWithRegExp(values, nameRegExp)
       if (!workerName) {
-        throw ApiError.badRequest(`Не найдены или некорректно указаны ФИО в строке ${index + 2}`)
+        throw ApiError.badRequest(`Не найдено или некорректно указано ФИО в строке ${index + 2}`)
       }
 
       const workerBirthday = findValueWithRegExp(values, birthdayRegExp) || defaultBirthdayValue
 
-      const workerProfession = findValueWithRegExp(values, professionRegExp) || defaultProfessionValue
+      const workerProfession = values[0] || defaultProfessionValue
 
       return {
         name: workerName,
         personNumber: workerNumber,
         birthday: new Date(workerBirthday),
-        profession: workerProfession
+        profession: workerProfession,
       }
     })
   }

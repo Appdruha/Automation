@@ -1,6 +1,5 @@
 export const defaultBirthdayValue = '1999.11.11'
 export const defaultProfessionValue = 'Не указано'
-export const nameRegExp = '([А-ЯЁ][а-яё]+[\\-\\s]?){3,}'
+export const nameRegExp = '([А-ЯЁ][а-яё]+[\\-]?[А-ЯЁ]?[а-яё]*)([\\s][А-ЯЁ]+[\\.]+[\\s]*){2}'
 export const personNumberRegExp = '^[0-9]*$'
 export const birthdayRegExp = '(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d'
-export const professionRegExp = '([А-ЯЁ][а-яё]+[\\-\\s][а-яё]+[\\-\\s]?[а-яё]+[\\-\\s]?[а-яё]+[\\-\\s]?){1,}'
