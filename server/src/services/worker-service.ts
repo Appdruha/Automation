@@ -13,6 +13,32 @@ import {
 import WorkerDto from '../dtos/worker-dto.js'
 
 class WorkerService {
+  async getAll(userId: number) {
+    const workers = await Worker.findAll({ where: { userId } })
+    return workers.map((worker) => new WorkerDto(worker))
+  }
+
+  async edit(workerData: WorkerData, userId: number) {
+    const worker = await Worker.findOne({
+      where: { userId, personNumber: workerData.personNumber },
+    })
+
+    if (worker) {
+      worker.name = workerData.name
+      worker.birthday = workerData.birthday
+      worker.profession = workerData.profession
+    } else {
+      throw ApiError.badRequest('Некорректный табельный номер')
+    }
+    const newWorkerData = await worker.save()
+
+    return new WorkerDto(newWorkerData)
+  }
+
+  async remove(personNumber: string, userId: number) {
+    return Worker.destroy({ where: { userId, personNumber } })
+  }
+
   async create(workerData: WorkerData, userId: number) {
     if (workerData.personNumber.length !== workerNumberLength) {
       throw ApiError.badRequest('Некорректный табельный номер')
@@ -25,11 +51,9 @@ class WorkerService {
       throw ApiError.badRequest('Такой табельный номер уже существует')
     }
 
-    await Worker.create({...workerData, userId})
+    const worker = await Worker.create({ ...workerData, userId })
 
-    const workers = await Worker.findAll({where: {userId}})
-
-    return workers.map((worker) => new WorkerDto(worker))
+    return new WorkerDto(worker)
   }
 
   async createWithFile(file: Buffer, userId: number) {
