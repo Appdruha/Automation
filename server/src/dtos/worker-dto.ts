@@ -1,6 +1,7 @@
 import Worker from '../db/models/worker.js'
+import { WorkerData } from '../types/worker.js'
 
-class WorkerDto {
+class WorkerDto implements WorkerData{
   name: string
   personNumber: string
   birthday: Date
