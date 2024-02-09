@@ -2,7 +2,8 @@ import multer, { FileFilterCallback, memoryStorage } from 'multer'
 import ApiError from '../errors/api-error.js'
 import { Request } from 'express'
 
-export const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+  console.log('ewaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
   if (file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
     cb(null, true)
   } else {

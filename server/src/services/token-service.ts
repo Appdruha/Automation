@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import Session from '../db/models/session.ts'
 import ApiError from '../errors/api-error.ts'
-import User from "../db/models/user.ts";
+import { TokenPayload } from '../types/token.js'
 
 type Token = 'ACCESS' | 'REFRESH'
 
@@ -29,7 +29,7 @@ class TokenService {
         secret = process.env.REFRESH_KEY
       }
 
-      return  jwt.verify(token, secret) as User
+      return  jwt.verify(token, secret) as TokenPayload
     } catch {
       return null
     }

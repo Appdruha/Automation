@@ -4,7 +4,7 @@ import TokenService from './token-service.ts'
 import UserDto from '../dtos/user-dto.ts'
 import ApiError from '../errors/api-error.ts'
 import { where } from 'sequelize'
-import tokenService from "./token-service.ts";
+import tokenService from './token-service.ts'
 
 class UserService {
   async registration(email: string, password: string, IP: string | undefined) {
@@ -45,18 +45,17 @@ class UserService {
       throw ApiError.unauthorized('Не авторизован')
     }
 
-    const userData = tokenService.verifyToken(refreshToken, 'REFRESH')
+    const tokenPayload = tokenService.verifyToken(refreshToken, 'REFRESH')
     const tokenFromDb = await tokenService.findToken(refreshToken)
 
-    if (!userData || !tokenFromDb) {
+    if (!tokenPayload || !tokenFromDb) {
       throw ApiError.unauthorized('Не авторизован')
     }
 
-    const userDto = new UserDto(userData)
-    const tokens = tokenService.generateTokens({...userDto})
-    await tokenService.saveToken(userDto.id, tokens.refreshToken, IP)
+    const tokens = tokenService.generateTokens({ id: tokenPayload.id, email: tokenPayload.email })
+    await tokenService.saveToken(tokenPayload.id, tokens.refreshToken, IP)
 
-    return {...tokens, user: userDto}
+    return { ...tokens, user: { id: tokenPayload.id, email: tokenPayload.email } }
   }
 
   async logout(refreshToken: string) {

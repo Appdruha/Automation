@@ -13,8 +13,9 @@ import {
 import WorkerDto from '../dtos/worker-dto.js'
 
 class WorkerService {
-  async getAll(userId: number) {
-    const workers = await Worker.findAll({ where: { userId } })
+  async list(userId: number, page = 1, limit = 10) {
+    const offset = page * limit - limit
+    const workers = await Worker.findAll({ where: { userId }, limit, offset })
     return workers.map((worker) => new WorkerDto(worker))
   }
 
