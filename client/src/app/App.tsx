@@ -1,4 +1,4 @@
-import { RootRouter } from './routes/RootRouter.tsx'
+import { RootRouter } from './routes/Root-router.tsx'
 import './app.module.css'
 import { ThemeProvider } from '@mui/material'
 import { theme } from './theme/theme.ts'
