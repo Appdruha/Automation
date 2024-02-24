@@ -7,7 +7,7 @@ export const Layout = () => {
   return (
     <>
       <Header pageName='Главная'/>
-      <Container sx={{ border: 1, borderColor: 'black', height: '90vh', width: '94vw' }}>
+      <Container sx={{ border: 1, borderColor: 'black', height: '130vh', width: '94vw' }}>
         <main>
           <Outlet />
         </main>

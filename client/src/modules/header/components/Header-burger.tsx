@@ -1,4 +1,5 @@
 import { Menu, MenuItem } from '@mui/material'
+import { HeaderMenuNavLink } from '../ui/custom-nav-link/Header-menu-nav-link.tsx'
 
 export const HeaderBurger = (props: {anchorEl: HTMLElement | null, isMenuOpen: boolean, handleCloseMenu: () => void}) => {
   return (
@@ -10,9 +11,9 @@ export const HeaderBurger = (props: {anchorEl: HTMLElement | null, isMenuOpen: b
         left: '-16px'
       }}
     >
-      <MenuItem onClick={props.handleCloseMenu}>Profile</MenuItem>
-      <MenuItem>My account</MenuItem>
-      <MenuItem>Logout</MenuItem>
+      <MenuItem onClick={props.handleCloseMenu}><HeaderMenuNavLink to='/'>Главная</HeaderMenuNavLink></MenuItem>
+      <MenuItem onClick={props.handleCloseMenu}><HeaderMenuNavLink to='/registration'>Регистрация</HeaderMenuNavLink></MenuItem>
+      <MenuItem onClick={props.handleCloseMenu}><HeaderMenuNavLink to='/authorization'>Авторизация</HeaderMenuNavLink></MenuItem>
     </Menu>
   )
 }

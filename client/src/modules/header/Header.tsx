@@ -18,7 +18,7 @@ export const Header = (props: { pageName: string }) => {
 
   return (
     <>
-      <AppBar ref={headerRef}>
+      <AppBar ref={headerRef} position='sticky'>
         <Toolbar>
           <IconButton
             size="large"
@@ -30,7 +30,7 @@ export const Header = (props: { pageName: string }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div">
+          <Typography variant="h5" component="div">
             {props.pageName}
           </Typography>
         </Toolbar>
