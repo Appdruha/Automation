@@ -5,8 +5,8 @@ export const Footer = () => {
     <Box
       component="footer"
       bgcolor="secondary.main"
+      flexGrow={1}
       sx={{
-        width: '100vw',
         height: '56px',
         display: 'flex',
       }}

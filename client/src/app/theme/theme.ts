@@ -20,4 +20,22 @@ export const theme = createTheme({
       main: '#D9D9D9',
     },
   },
-});
+  shape: {
+    borderRadius: 0,
+  },
+  components: {
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+
+        },
+        list: {
+          '&[role="menu"]': {
+            backgroundColor: '#D9D9D9',
+            width: '200px',
+          },
+        },
+      },
+    },
+  },
+})
