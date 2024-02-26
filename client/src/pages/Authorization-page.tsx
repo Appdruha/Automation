@@ -1,7 +1,7 @@
+import { RegistrationForm } from '../modules/registration-form'
+
 export const AuthorizationPage = () => {
   return (
-    <h1>
-      hell0
-    </h1>
+    <RegistrationForm/>
   )
 }
