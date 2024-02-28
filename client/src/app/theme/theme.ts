@@ -46,7 +46,7 @@ export const theme = createTheme({
         },
       },
     },
-    MuiTextField: {
+    MuiInputBase: {
       styleOverrides: {
         root: {
           backgroundColor: '#FFE0C2',
