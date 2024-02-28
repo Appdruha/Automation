@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express'
+import cors from 'cors'
 import router from './routes/index.ts'
 import sequelize from './db/index.ts'
 import cookieParser from 'cookie-parser'
@@ -9,6 +10,11 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` })
 const PORT = process.env.PORT
 
 export const app = express()
+app.use(cors({
+  origin: [
+    'http://localhost:5173'
+  ]
+}))
 app.use(express.json())
 app.use(cookieParser())
 app.use('/api', router)
