@@ -11,14 +11,14 @@ class UserController {
     next: NextFunction,
   ) {
     try {
-      const { email, password } = req.body
+      const { email, password, registrationKey } = req.body
       const IP = req.ip
       let userData
 
       if (req.path === '/login') {
         userData = await userService.login(email, password, IP)
       } else {
-        userData = await userService.registration(email, password, IP)
+        userData = await userService.registration(email, password, IP, registrationKey)
       }
 
       res.cookie('refreshToken', userData.refreshToken, {

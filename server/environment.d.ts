@@ -13,6 +13,7 @@ declare global {
       readonly DB_PORT: number
       readonly SECRET_KEY: string
       readonly REFRESH_KEY: string
+      readonly REGISTRATION_KEY: string
     }
   }
 }

@@ -7,7 +7,11 @@ import { where } from 'sequelize'
 import tokenService from './token-service.ts'
 
 class UserService {
-  async registration(email: string, password: string, IP: string | undefined) {
+  async registration(email: string, password: string, IP?: string, registrationKey?: string) {
+    if (registrationKey !== process.env.REGISTRATION_KEY) {
+      throw ApiError.badRequest(`Неверный ключ для регистрации`)
+    }
+
     const candidate = await User.findOne({ where: { email } })
     if (candidate) {
       throw ApiError.badRequest(`Пользователь с почтовым адресом ${email} уже существует`)
