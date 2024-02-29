@@ -35,15 +35,15 @@ class TokenService {
     }
   }
 
-  async saveToken(userId: number, refreshToken: string, IP: string | undefined) {
+  async saveToken(userId: number, refreshToken: string, IP?: string) {
     try {
       const sessionData = await Session.findOne({ where: { userId } })
       if (sessionData) {
         sessionData.refresh = refreshToken
         return sessionData.save()
       }
-
-      return Session.create({ userId, refresh: refreshToken, IP })
+      console.log(IP? IP: null)
+      return Session.create({ userId, refresh: refreshToken, IP: (IP? IP: null) })
     } catch {
       throw ApiError.badRequest(`Пользователя с id ${userId} не существует`)
     }

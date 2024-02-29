@@ -26,7 +26,7 @@ class UserService {
     return { ...tokens, user: userDto }
   }
 
-  async login(email: string, password: string, IP: string | undefined) {
+  async login(email: string, password: string, IP?: string) {
     const user = await User.findOne({ where: { email } })
     if (!user) {
       throw ApiError.notFound(`Пользователь с почтовым адресом ${email} не найден`)
@@ -44,7 +44,7 @@ class UserService {
     return { ...tokens, user: userDto }
   }
 
-  async refresh(refreshToken: string | undefined, IP: string | undefined) {
+  async refresh(refreshToken: string | undefined, IP?: string) {
     if (!refreshToken) {
       throw ApiError.unauthorized('Не авторизован')
     }

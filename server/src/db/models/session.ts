@@ -5,7 +5,7 @@ import { Optional } from "sequelize";
 interface SessionAttributes {
   id: number
   userId: number
-  IP?: string
+  IP: string | null
   refresh: string
 }
 
@@ -20,7 +20,7 @@ class Session extends Model<SessionAttributes, SessionCreationAttributes> implem
   @Column({type: DataType.INTEGER, primaryKey: true, autoIncrement: true, unique: true})
   id: number
 
-  @Column({type: DataType.STRING, unique: true})
+  @Column({type: DataType.STRING, unique: false})
   IP: string
 
   @Column({type: DataType.STRING, unique: true, allowNull: false})

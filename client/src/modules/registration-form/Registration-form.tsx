@@ -3,6 +3,8 @@ import { Box, Button } from '@mui/material'
 import { ControlledTextField } from '../../components/controlled-text-field/Controlled-text-field.tsx'
 import { EMAIL_PATTERN } from './consts/consts.ts'
 import { validatePassword } from './helpers/validate-password.ts'
+import { useRegistrationMutation } from './api/registration-api.ts'
+import { useEffect } from 'react'
 
 interface Inputs {
   email: string
@@ -12,6 +14,8 @@ interface Inputs {
 }
 
 export const RegistrationForm = () => {
+  const [registration, {data, isLoading}] = useRegistrationMutation()
+
   const formMethods = useForm<Inputs>({ mode: 'onBlur' })
 
   const {
@@ -20,11 +24,17 @@ export const RegistrationForm = () => {
   } = formMethods
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+    const {email, password, registrationKey} = data
+    registration({email, password, registrationKey})
   }
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   return (
     <FormProvider {...formMethods}>
+      {isLoading && <h2>loading</h2>}
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
