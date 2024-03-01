@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { registrationApi } from '../modules/registration-form'
+import userReducer from './reducers/userSlice.ts'
 
 const rootReducer = combineReducers({
   [registrationApi.reducerPath]: registrationApi.reducer,
+  userReducer
 })
 
 export const store = configureStore({

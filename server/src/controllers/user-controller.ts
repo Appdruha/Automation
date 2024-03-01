@@ -22,9 +22,10 @@ class UserController {
       }
 
       res.cookie('refreshToken', userData.refreshToken, {
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 14 * 24 * 60 * 60 * 1000,
         path: '/',
+        secure: false,
       })
 
       return res.json({

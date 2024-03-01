@@ -23,9 +23,9 @@ export const RegistrationForm = () => {
     getValues
   } = formMethods
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const {email, password, registrationKey} = data
-    registration({email, password, registrationKey})
+    await registration({email, password, registrationKey}).unwrap()
   }
 
   useEffect(() => {

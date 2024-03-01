@@ -6,12 +6,15 @@ export const registrationApi = createApi({
   reducerPath: 'registrationApi',
   baseQuery: baseQuery(jsonRequestHeaders),
   endpoints: (build) => ({
-    registration: build.mutation<AuthResponse, RegistrationData>({
+    registration: build.mutation<String, RegistrationData>({
       query: (registrationData) => ({
         url: `users/registration`,
         method: 'POST',
-        body: registrationData
+        body: registrationData,
       }),
+      transformResponse: (response: AuthResponse) => {
+        return response.accessToken
+      },
     })
   })
 })
