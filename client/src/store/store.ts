@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { registrationApi } from '../modules/registration-form'
+import { authorizationApi } from '../modules/authorization-form'
 import userReducer from './reducers/userSlice.ts'
 
 const rootReducer = combineReducers({
-  [registrationApi.reducerPath]: registrationApi.reducer,
+  [authorizationApi.reducerPath]: authorizationApi.reducer,
   userReducer
 })
 
@@ -11,7 +11,7 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(registrationApi.middleware),
+      .concat(authorizationApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

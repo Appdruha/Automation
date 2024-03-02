@@ -1,7 +1,7 @@
-import { RegistrationForm } from '../modules/registration-form'
+import { AuthorizationForm } from '../modules/authorization-form'
 
 export const AuthorizationPage = () => {
   return (
-    <RegistrationForm/>
+    <AuthorizationForm/>
   )
 }

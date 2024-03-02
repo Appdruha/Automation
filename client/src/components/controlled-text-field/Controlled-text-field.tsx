@@ -2,12 +2,12 @@ import { Controller } from 'react-hook-form'
 import TextField from '@mui/material/TextField'
 import { ControlledTextFieldProps } from './Controlled-text-field-props.ts'
 
-export const ControlledTextField = ({name, rules, label, sx, type}: ControlledTextFieldProps) => {
+export const ControlledTextField = ({ name, rules, label, sx, type }: ControlledTextFieldProps) => {
   return (
     <Controller
       name={name}
       rules={rules}
-      render={({ field: {value = '', onChange, onBlur}, fieldState: { error } }) => (
+      render={({ field: { value = '', onChange, onBlur }, fieldState: { error } }) => (
         <TextField
           sx={sx}
           type={type || 'text'}
@@ -20,7 +20,8 @@ export const ControlledTextField = ({name, rules, label, sx, type}: ControlledTe
           label={label}
           variant="outlined"
           inputProps={{
-            maxLength: 50
+            maxLength: 50,
+            autoComplete: 'new-password'
           }}
         />
       )}

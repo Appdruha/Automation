@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { registrationApi } from '../../modules/registration-form'
+import { authorizationApi } from '../../modules/authorization-form'
 
 const initialState = {
   isAuthorized: false,
@@ -9,9 +9,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(registrationApi.endpoints.registration.matchFulfilled,
-      (state, action) => {
-      localStorage.setItem('accessToken', action.payload as string)
+    builder.addMatcher(authorizationApi.endpoints.registration.matchFulfilled, (state, action) => {
+      localStorage.setItem('accessToken', action.payload)
+      state.isAuthorized = true
+    })
+    builder.addMatcher(authorizationApi.endpoints?.authorization.matchFulfilled, (state, action) => {
+      localStorage.setItem('accessToken', action.payload)
       state.isAuthorized = true
     })
   },
