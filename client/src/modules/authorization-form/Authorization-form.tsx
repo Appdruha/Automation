@@ -1,11 +1,11 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Typography } from '@mui/material'
 import { ControlledTextField } from '../../components/controlled-text-field/Controlled-text-field.tsx'
 import { EMAIL_PATTERN } from './consts/consts.ts'
 import { validatePassword } from './helpers/validate-password.ts'
 import { useRegistrationMutation, useAuthorizationMutation } from './api/authorization-api.ts'
 import { useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { REGISTRATION_ROUTE } from '../../consts/routes.ts'
 
 interface Inputs {
@@ -19,12 +19,19 @@ export const AuthorizationForm = () => {
   const { pathname } = useLocation()
   const isRegistration = pathname === REGISTRATION_ROUTE
 
-  const [registration, {}] = useRegistrationMutation()
-  const [authorization, {}] = useAuthorizationMutation()
+  const [isSendingForm, setIsSendingForm] = useState(false)
+
+  const [registration, registrationRequestData] = useRegistrationMutation()
+  const [authorization, authorizationRequestData] = useAuthorizationMutation()
 
   const formMethods = useForm<Inputs>({ mode: 'onBlur' })
 
-  const { handleSubmit, getValues, reset } = formMethods
+  const {
+    handleSubmit,
+    getValues,
+    reset,
+    formState: {isValid },
+  } = formMethods
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (isRegistration) {
@@ -35,6 +42,14 @@ export const AuthorizationForm = () => {
       await authorization({ email, password }).unwrap()
     }
   }
+
+  useEffect(() => {
+    if (authorizationRequestData.isLoading || registrationRequestData.isLoading) {
+      setIsSendingForm(true)
+    } else {
+      setIsSendingForm(false)
+    }
+  }, [authorizationRequestData.isLoading, registrationRequestData.isLoading])
 
   useEffect(() => {
     reset()
@@ -112,15 +127,23 @@ export const AuthorizationForm = () => {
             />
           </>
         )}
+
         <Button
           type="submit"
           variant="contained"
           fullWidth
+          disabled={!isValid || isSendingForm}
           sx={{
             mt: 3,
           }}
         >
-          {isRegistration ? 'Зарегистрироваться' : 'Авторизироваться'}
+          {isSendingForm ? (
+            <CircularProgress size={20} />
+          ) : isRegistration ? (
+            'Зарегистрироваться'
+          ) : (
+            'Авторизироваться'
+          )}
         </Button>
       </Box>
     </FormProvider>
