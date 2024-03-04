@@ -32,18 +32,14 @@ export const AuthorizationForm = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (isRegistration) {
       const { email, password, registrationKey } = data
-      await registration({ email, password, registrationKey })
-        .unwrap()
-        .catch((error) => {
-          handleFieldError(error, setError)
-        })
+      await registration({ email, password, registrationKey }).unwrap().catch((error) => {
+        handleFieldError(error, setError)
+      })
     } else {
       const { email, password } = data
-      await authorization({ email, password })
-        .unwrap()
-        .catch((error) => {
-          handleFieldError(error, setError)
-        })
+      await authorization({ email, password }).unwrap().catch((error) => {
+        handleFieldError(error, setError)
+      })
     }
   }
 
@@ -53,7 +49,10 @@ export const AuthorizationForm = () => {
     } else {
       setIsSendingForm(false)
     }
-  }, [authorizationRequestData.isLoading, registrationRequestData.isLoading])
+  }, [
+    authorizationRequestData.isLoading,
+    registrationRequestData.isLoading,
+  ])
 
   useEffect(() => {
     reset()
