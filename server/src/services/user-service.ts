@@ -9,12 +9,12 @@ import tokenService from './token-service.ts'
 class UserService {
   async registration(email: string, password: string, IP?: string, registrationKey?: string) {
     if (registrationKey !== process.env.REGISTRATION_KEY) {
-      throw ApiError.badRequest(`Неверный ключ для регистрации`)
+      throw ApiError.badRequest(`Неверный ключ для регистрации`, 'regKeyErr')
     }
 
     const candidate = await User.findOne({ where: { email } })
     if (candidate) {
-      throw ApiError.badRequest(`Пользователь с почтовым адресом ${email} уже существует`)
+      throw ApiError.badRequest(`Пользователь с почтовым адресом ${email} уже существует`, 'emailErr')
     }
 
     const hashPassword = await bcrypt.hash(password, 5)
@@ -29,12 +29,12 @@ class UserService {
   async login(email: string, password: string, IP?: string) {
     const user = await User.findOne({ where: { email } })
     if (!user) {
-      throw ApiError.notFound(`Пользователь с почтовым адресом ${email} не найден`)
+      throw ApiError.badRequest(`Пользователь с почтовым адресом ${email} не найден`, 'emailErr')
     }
 
     const comparePassword = bcrypt.compareSync(password, user.password)
     if (!comparePassword) {
-      throw ApiError.badRequest('Неверный пароль')
+      throw ApiError.badRequest('Неверный пароль', 'passwErr')
     }
 
     const userDto = new UserDto(user)

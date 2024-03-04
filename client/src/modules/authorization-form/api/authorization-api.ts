@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { UserData } from '../types/UserData.ts'
+import { UserData } from '../types/User-data.ts'
 import { baseQuery, jsonRequestHeaders } from '../../../api'
 
 export const authorizationApi = createApi({

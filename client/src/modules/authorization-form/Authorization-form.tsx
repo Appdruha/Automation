@@ -7,13 +7,8 @@ import { useRegistrationMutation, useAuthorizationMutation } from './api/authori
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { REGISTRATION_ROUTE } from '../../consts/routes.ts'
-
-interface Inputs {
-  email: string
-  password: string
-  confirmPassword?: string
-  registrationKey?: string
-}
+import { handleFieldError } from './helpers/handle-field-error.ts'
+import { Inputs } from './types/Inputs.ts'
 
 export const AuthorizationForm = () => {
   const { pathname } = useLocation()
@@ -30,16 +25,25 @@ export const AuthorizationForm = () => {
     handleSubmit,
     getValues,
     reset,
-    formState: {isValid },
+    setError,
+    formState: { isValid },
   } = formMethods
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (isRegistration) {
       const { email, password, registrationKey } = data
-      await registration({ email, password, registrationKey }).unwrap()
+      await registration({ email, password, registrationKey })
+        .unwrap()
+        .catch((error) => {
+          handleFieldError(error, setError)
+        })
     } else {
       const { email, password } = data
-      await authorization({ email, password }).unwrap()
+      await authorization({ email, password })
+        .unwrap()
+        .catch((error) => {
+          handleFieldError(error, setError)
+        })
     }
   }
 
