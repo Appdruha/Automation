@@ -5,6 +5,7 @@ import { REGISTRATION_ROUTE } from '../../consts/routes.ts'
 
 export const ProtectedRoute = (props: { children: ReactNode }) => {
   const { isAuthorized } = useAppSelector((state) => state.userReducer)
+
   if (!isAuthorized) {
     return <Navigate to={REGISTRATION_ROUTE} replace />
   }

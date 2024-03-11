@@ -1,13 +1,7 @@
-import { useEffect } from 'react'
-
+import { MainMenu } from '../modules/main-menu'
 
 export const MainPage = () => {
-  useEffect(() => {
-    console.log('render')
-  }, [])
   return (
-    <div>
-      main
-    </div>
+    <MainMenu/>
   )
 }

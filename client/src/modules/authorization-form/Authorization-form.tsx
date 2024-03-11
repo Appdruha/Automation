@@ -4,20 +4,19 @@ import { ControlledTextField } from '../../components/controlled-text-field/Cont
 import { EMAIL_PATTERN } from './consts/consts.ts'
 import { validatePassword } from './helpers/validate-password.ts'
 import { useRegistrationMutation, useAuthorizationMutation } from './api/authorization-api.ts'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { REGISTRATION_ROUTE } from '../../consts/routes.ts'
+import { MAIN_ROUTE, REGISTRATION_ROUTE } from '../../consts/routes.ts'
 import { handleFieldError } from './helpers/handle-field-error.ts'
 import { Inputs } from './types/Inputs.ts'
 
 export const AuthorizationForm = () => {
   const { pathname } = useLocation()
   const isRegistration = pathname === REGISTRATION_ROUTE
-
   const [isSendingForm, setIsSendingForm] = useState(false)
-
   const [registration, registrationRequestData] = useRegistrationMutation()
   const [authorization, authorizationRequestData] = useAuthorizationMutation()
+  const navigate = useNavigate()
 
   const formMethods = useForm<Inputs>({ mode: 'onBlur' })
 
@@ -26,7 +25,7 @@ export const AuthorizationForm = () => {
     getValues,
     reset,
     setError,
-    formState: { isValid },
+    formState: { isValid, isSubmitSuccessful },
   } = formMethods
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -55,8 +54,11 @@ export const AuthorizationForm = () => {
   ])
 
   useEffect(() => {
+    if (isSubmitSuccessful) {
+      navigate(MAIN_ROUTE)
+    }
     reset()
-  }, [pathname])
+  }, [pathname, isSubmitSuccessful])
 
   return (
     <FormProvider {...formMethods}>

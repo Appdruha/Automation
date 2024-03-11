@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { authorizationApi } from '../modules/authorization-form'
 import userReducer from './reducers/userSlice.ts'
+import { userApi } from '../api'
 
 const rootReducer = combineReducers({
   [authorizationApi.reducerPath]: authorizationApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
   userReducer
 })
 
@@ -11,7 +13,7 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(authorizationApi.middleware),
+      .concat([authorizationApi.middleware, userApi.middleware]),
 })
 
 export type RootState = ReturnType<typeof store.getState>
