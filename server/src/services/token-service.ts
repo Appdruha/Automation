@@ -42,7 +42,6 @@ class TokenService {
         sessionData.refresh = refreshToken
         return sessionData.save()
       }
-      console.log(IP? IP: null)
       return Session.create({ userId, refresh: refreshToken, IP: (IP? IP: null) })
     } catch {
       throw ApiError.badRequest(`Пользователя с id ${userId} не существует`)

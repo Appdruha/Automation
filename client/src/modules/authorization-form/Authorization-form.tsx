@@ -1,6 +1,6 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { Box, Button, CircularProgress, Typography } from '@mui/material'
-import { ControlledTextField } from '../../components/controlled-text-field/Controlled-text-field.tsx'
+import { ControlledTextField } from '../../ui/controlled-text-field/Controlled-text-field.tsx'
 import { EMAIL_PATTERN } from './consts/consts.ts'
 import { validatePassword } from './helpers/validate-password.ts'
 import { useRegistrationMutation, useAuthorizationMutation } from './api/authorization-api.ts'
